@@ -28,6 +28,8 @@ public class Tache {
     private Etat etat;
 
     private String priorite;
+    @Enumerated(EnumType.STRING)
+    private Categorie categorie;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
