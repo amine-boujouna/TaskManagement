@@ -5,6 +5,7 @@ import com.example.taskmanagement.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,22 @@ public class TacheService {
        }else{
            throw new RuntimeException("tache non trouveé avec l'id"+id);
        }
+    }
+
+    public List<Tache> findAlltache(){
+        return tacheRepository.findAll();
+    }
+    public Tache findTacheById(Long id){
+        Optional<Tache> task = tacheRepository.findById(id);
+        return task.orElseThrow(() -> new RuntimeException("Tache non trouvé avec id :  " + id));
+    }
+
+
+    public void deleteTaskById(Long id) {
+        if (tacheRepository.existsById(id)) {
+            tacheRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Tache non trouvé avec id : " + id);
+        }
     }
 }
