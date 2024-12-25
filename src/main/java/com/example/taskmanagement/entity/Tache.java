@@ -30,15 +30,13 @@ public class Tache {
     private String priorite;
     @Enumerated(EnumType.STRING)
     private Categorie categorie;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
 
     public Tache() {
 
     }
 
-    public Tache(Long id, String titre, String description, Date datedebut, Date datefin, Etat etat, String priorite) {
+    public Tache(Long id, String titre, String description, Date datedebut, Date datefin, Etat etat, String priorite,Categorie categorie) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -46,6 +44,7 @@ public class Tache {
         this.datefin = datefin;
         this.etat = etat;
         this.priorite = priorite;
+        this.categorie=categorie;
     }
 
     public Long getId() {
@@ -104,11 +103,11 @@ public class Tache {
         this.priorite = priorite;
     }
 
-    public User getUser() {
-        return user;
+    public Categorie getCategorie() {
+        return categorie;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
     }
 }
