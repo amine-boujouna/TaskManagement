@@ -1,10 +1,14 @@
 package com.example.taskmanagement.serivce;
 
 import com.example.taskmanagement.entity.Categorie;
+import com.example.taskmanagement.entity.Etat;
 import com.example.taskmanagement.entity.Tache;
 import com.example.taskmanagement.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,6 +36,7 @@ public class TacheService {
            existtache.setEtat(tache.getEtat());
            existtache.setPriorite(tache.getPriorite());
            existtache.setTitre(tache.getTitre());
+           existtache.setCategorie(tache.getCategorie());
            return tacheRepository.save(existtache);
        }else{
            throw new RuntimeException("tache non trouveé avec l'id"+id);
@@ -78,6 +83,4 @@ public class TacheService {
     public List<Tache> findAllSortedByDateDebutDescending() {
         return tacheRepository.findAll(Sort.by(Sort.Direction.DESC, "datedebut"));
     }
-
-
 }

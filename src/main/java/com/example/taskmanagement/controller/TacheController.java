@@ -1,6 +1,7 @@
 package com.example.taskmanagement.controller;
 
 import com.example.taskmanagement.entity.Categorie;
+import com.example.taskmanagement.entity.Etat;
 import com.example.taskmanagement.entity.Tache;
 import com.example.taskmanagement.serivce.TacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,13 @@ public class TacheController {
     }
 
     @GetMapping("/categorie/{categorie}")
-    public ResponseEntity<List<Tache>> getTachesByCategorie(@PathVariable Categorie categorie) {
-        List<Tache> taches = tacheService.findTachesByCategorie(categorie);
-        return ResponseEntity.ok(taches);
+    public ResponseEntity<?>  getTachesByCategorie(@PathVariable String categorie) {
+        try {
+            Categorie cat = Categorie.valueOf(categorie); // Vérifie si la catégorie existe
+            List<Tache> taches = tacheService.findTachesByCategorie(cat);
+            return ResponseEntity.ok(taches);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categorie not found: " + categorie);        }
     }
 
     @GetMapping("/date")
@@ -107,4 +112,6 @@ public class TacheController {
         }
         return ResponseEntity.ok(taches);
     }
+
+
 }
